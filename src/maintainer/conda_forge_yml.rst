@@ -30,6 +30,7 @@ Top-level fields
 * :ref:`channels`
 * :ref:`choco`
 * :ref:`circle`
+* :ref:`conda_build`
 * :ref:`conda_forge_output_validation`
 * :ref:`docker`
 * :ref:`github`
@@ -57,14 +58,7 @@ appveyor
 --------
 The top-level ``appveyor`` key specifies configurations for the Appveyor
 CI service.  This is usually **read-only** and should not normally be manually
-modified.  Tools like conda-smithy may modify this, as need.  It has a single
-``secure`` field which contains the binstar token.  For example:
-
-.. code-block:: yaml
-
-    appveyor:
-      secure:
-        BINSTAR_TOKEN: <some big hash>
+modified. Tools like conda-smithy may modify this, as needed.
 
 .. _azure-config:
 
@@ -119,6 +113,15 @@ automatic version updates/migrations for feedstocks. The current options are
 
       # only open PRs if resulting environment is solvable, useful for tightly coupled packages
       check_solvable: true
+
+      # The bot.inspection key in the conda-forge.yml can have one of six possible values:
+      inspection: hint  # generate hints using source code (backwards compatible)
+      inspection: hint-all  # generate hints using all methods
+      inspection: hint-source  # generate hints using only source code
+      inspection: hint-grayskull  # generate hints using only grayskull
+      inspection: update-all  # update recipe using all methods
+      inspection: update-source  # update recipe using only source code
+      inspection: update-grayskull  # update recipe using only grayskull
 
       # any branches listed in this section will get bot migration PRs in addition
       # to the default branch
@@ -221,14 +224,25 @@ circle
 --------
 The top-level ``circle`` key specifies configurations for the Circle
 CI service.  This is usually **read-only** and should not normally be manually
-modified.  Tools like conda-smithy may modify this, as needed.  It has a single
-``secure`` field which contains the binstar token.  For example:
+modified.  Tools like conda-smithy may modify this, as needed.
+
+.. _conda_build:
+
+conda_build
+-----------
+
+Settings in this block are used to control how conda build runs and produces
+artifacts. The currently supported options are
 
 .. code-block:: yaml
 
-    appveyor:
-      secure:
-        BINSTAR_TOKEN: <some big hash>
+    conda_build:
+      pkg_format: 2    # makes .conda artifacts
+      pkg_format: None # makes .tar.bz2 artifacts
+      # controls the compression level for .conda artifacts
+      # conda-forge uses a default value of 16 since its artifacts
+      # can be large. conda-build has a default of 22.
+      zstd_compression_level: 16
 
 .. _conda_forge_output_validation:
 
@@ -503,14 +517,7 @@ travis
 ------
 The top-level ``travis`` key specifies configurations for the Travis
 CI service.  This is usually **read-only** and should not normally be manually
-modified.  Tools like conda-smithy may modify this, as needed.  It has a single
-``secure`` field which contains the binstar token.  For example:
-
-.. code-block:: yaml
-
-    travis:
-      secure:
-        BINSTAR_TOKEN: <some big hash>
+modified.  Tools like conda-smithy may modify this, as needed.
 
 .. _upload_on_branch:
 

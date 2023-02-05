@@ -6,9 +6,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Announcements &#8212; conda-forge 2022.07.16 documentation</title>
+    <title>Announcements &#8212; conda-forge 2023.02.05 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
@@ -18,6 +18,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
 
     
     
@@ -56,7 +57,7 @@
         <li class="right" >
           <a href="introduction.html" title="A brief introduction"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../index.html">conda-forge 2022.07.16 documentation</a> &#187;</li>
+    <li><a href="../index.html">conda-forge 2023.02.05 documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="00_intro.html" accesskey="U">User Documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Announcements</a></li> 
@@ -74,7 +75,91 @@
 <span id="news"></span><h1>Announcements<a class="headerlink" href="#announcements" title="Permalink to this heading">¶</a></h1>
 <p>Our announcements are published to an RSS feed <a class="reference external" href="https://conda-forge.org/docs/news.rss">here</a>.</p>
 <section id="id1">
-<h2>2022<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<h2>2023<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<section id="conda-forge-google-group-is-now-read-only-move-to-discourse">
+<h3>2023-01-09: <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> Google Group is Now Read-only - Move to Discourse<a class="headerlink" href="#conda-forge-google-group-is-now-read-only-move-to-discourse" title="Permalink to this heading">¶</a></h3>
+<p>We have made the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> Google Group read-only. Please use the new
+<code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> <a class="reference external" href="https://conda.discourse.group/c/pkg-building/conda-forge/25">discourse forum</a>,
+our <a class="reference external" href="https://gitter.im/conda-forge/conda-forge.github.io">Gitter room</a>, or it’s <a class="reference external" href="https://app.element.io/#/room/#conda-forge-space:matrix.org">Matrix/Element
+counterpart</a> instead.</p>
+</section>
+<section id="conda-forge-staged-recipes-feedstock-creation-job-moved">
+<h3>2023-01-08: <code class="docutils literal notranslate"><span class="pre">conda-forge/staged-recipes</span></code> Feedstock Creation Job Moved<a class="headerlink" href="#conda-forge-staged-recipes-feedstock-creation-job-moved" title="Permalink to this heading">¶</a></h3>
+<p>We have moved the CI job that makes new feedstocks to our
+<a class="reference external" href="https://github.com/conda-forge/admin-requests">conda-forge/admin-requests</a>
+repo. The new location is reflected in the various links on repos and our status page.</p>
+</section>
+</section>
+<section id="id2">
+<h2>2022<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<section id="moving-to-conda-artifacts">
+<h3>2022-11-16: Moving to <code class="docutils literal notranslate"><span class="pre">.conda</span></code> Artifacts<a class="headerlink" href="#moving-to-conda-artifacts" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> is moving to producing <code class="docutils literal notranslate"><span class="pre">conda</span></code> artifacts in the version 2 package
+format (also known as <code class="docutils literal notranslate"><span class="pre">.conda</span></code>). These artifacts allow for more efficient indexing
+and maintenance of the ecosystem. Our admin migrations bot will begin making PRs to
+feedstocks to change them over to the new artifact format. You will need <code class="docutils literal notranslate"><span class="pre">conda</span></code>
+version 4.7 or later to use the new <code class="docutils literal notranslate"><span class="pre">.conda</span></code> artifacts. Please leave a comment on
+<a class="reference external" href="https://github.com/conda-forge/conda-forge.github.io/issues/1586">this issue</a>
+if you encounter problems or have feedback.</p>
+</section>
+<section id="releasing-python-3-8-14-3-9-14-and-3-10-7">
+<h3>2022-11-04: Releasing Python 3.8.14, 3.9.14, and 3.10.7<a class="headerlink" href="#releasing-python-3-8-14-3-9-14-and-3-10-7" title="Permalink to this heading">¶</a></h3>
+<p>The CPython versions 3.8.14, 3.9.14, and 3.10.7 were released some weeks ago to mitigate <a class="reference external" href="https://nvd.nist.gov/vuln/detail/CVE-2020-10735">CVE-2020-10735</a>.
+The chosen mitigation strategy might cause errors (e.g. <code class="docutils literal notranslate"><span class="pre">ValueError:</span> <span class="pre">Exceeds</span> <span class="pre">the</span> <span class="pre">limit</span> <span class="pre">(4300)</span> <span class="pre">for</span> <span class="pre">integer</span> <span class="pre">string</span> <span class="pre">conversion</span></code>) in some libraries.
+If you are affected, please read the <a class="reference external" href="https://docs.python.org/release/3.10.7/whatsnew/3.10.html#notable-security-feature-in-3-10-7">announcement</a>
+and learn about the available workarounds in the  <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#integer-string-conversion-length-limitation">CPython documentation</a>.</p>
+<p>The conda-forge team <a class="reference external" href="https://github.com/conda-forge/python-feedstock/pull/579">has decided</a> to build and publish these releases with no additional changes.
+The new packages will be made available on or after 2022-11-10, following <a class="reference external" href="https://anaconda.cloud/anaconda-repo-news">Anaconda’s decision</a>.</p>
+</section>
+<section id="conda-moving-to-calver">
+<h3>2022-09-27: Conda Moving to CalVer<a class="headerlink" href="#conda-moving-to-calver" title="Permalink to this heading">¶</a></h3>
+<p>Conda is moving to CalVer per <a class="reference external" href="https://github.com/conda-incubator/ceps/blob/main/cep-8.md">CEP 8</a>.
+The first CalVer and last SemVer should be <code class="docutils literal notranslate"><span class="pre">22.9.0</span></code> and <code class="docutils literal notranslate"><span class="pre">4.14.0</span></code> respectively. This change
+maintains version order so you should not expect any issues.</p>
+</section>
+<section id="dropping-python-3-7">
+<h3>2022-08-24: Dropping Python 3.7<a class="headerlink" href="#dropping-python-3-7" title="Permalink to this heading">¶</a></h3>
+<p>Conda-Forge has been providing support for Python 3.7 for 4 years now.
+Increasingly projects are moving off it (particularly in the PyData community).
+With Python 3.11’s release coming around the corner (October 3rd), conda-forge
+plans to drop Python 3.7 support when Python 3.11 comes out. This will lighten
+the load on conda-forge infrastructure and make room for the new versions the
+community would like to support.</p>
+<p>More details can be found in issue <a class="reference external" href="https://github.com/conda-forge/conda-forge-pinning-feedstock/issues/2623">conda-forge-pinning-feedstock#2623</a>.
+Feedback is welcome there.</p>
+</section>
+<section id="dropping-pypy-3-7">
+<h3>2022-08-17: Dropping PyPy 3.7<a class="headerlink" href="#dropping-pypy-3-7" title="Permalink to this heading">¶</a></h3>
+<p>Conda-forge has supported PyPy since almost 2.5 years now, and the initial
+PyPy 3.7 builds have been superseded in almost all aspects by the newer builds
+for 3.8 &amp; 3.9. We are therefore dropping PyPy 3.7 as a supported python version,
+and will keep focusing on the more contemporary PyPy builds.</p>
+</section>
+<section id="moving-to-visual-studio-toolchain-vc142">
+<h3>2022-08-11: Moving to Visual Studio toolchain vc142<a class="headerlink" href="#moving-to-visual-studio-toolchain-vc142" title="Permalink to this heading">¶</a></h3>
+<p>Microsoft has deprecated the Visual Studio (VS) 2017 compiler and removed it
+from all the CI they control (notably Azure Pipelines &amp; Github Actions).
+This means that the default toolchain (== C/C++ compiler, linker, standard
+libraries, and related utilities) of that VS version - vc141 - is getting less
+and less use in upstream libraries (because public hosted CI doesn’t use it
+anymore by default), and therefore support for it is bitrotting
+at an accelerating pace. We are therefore
+<a class="reference external" href="https://github.com/conda-forge/conda-forge-pinning-feedstock/pull/3167">planning</a>
+to move our toolchain on windows to vc142 (the default in VS2019) in two weeks,
+on 2022-08-25.</p>
+<p>This will not affect you as a general user of conda-forge packages on windows;
+the only impact is that if you are locally compiling against artefacts produced
+by conda-forge and are still using VS2017 yourself, you will need to upgrade your
+compiler (VS2019 is a drop-in replacement &amp; ABI-compatible).</p>
+</section>
+<section id="azure-osx-vm-image-bumped-to-version-11">
+<h3>2022-07-22: Azure OSX VM Image Bumped to Version 11<a class="headerlink" href="#azure-osx-vm-image-bumped-to-version-11" title="Permalink to this heading">¶</a></h3>
+<p>Azure is removing their OSX 10.15 VM image and so we are bumping to 11.
+You will need to rerender your feedstock to get this change. Feedstocks
+without the new VM image specified will not build after Azure fully
+removes the old image. Please get in touch with us if you have issues
+or questions!</p>
+</section>
 <section id="packages-for-qt-pyqt-5-15-2-are-now-available">
 <h3>2022-04-23: Packages for Qt/PyQt 5.15.2 are now available<a class="headerlink" href="#packages-for-qt-pyqt-5-15-2-are-now-available" title="Permalink to this heading">¶</a></h3>
 <p>After more than six months, the conda-forge team and contributors have managed
@@ -143,8 +228,8 @@ following git commands:</p>
 <a class="reference external" href="https://github.com/conda-forge/conda-forge.github.io/issues/1162">issue</a>.</p>
 </section>
 </section>
-<section id="id2">
-<h2>2021<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<section id="id3">
+<h2>2021<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <section id="centos-7-docker-images-are-now-the-default">
 <h3>2021-12-02: CentOS 7 docker images are now the default<a class="headerlink" href="#centos-7-docker-images-are-now-the-default" title="Permalink to this heading">¶</a></h3>
 <p>We are moving all <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> <code class="docutils literal notranslate"><span class="pre">linux-64</span></code> jobs to use CentOS 7-based docker images.
@@ -192,14 +277,14 @@ as that would save lots of CI resources.</p>
 <code class="docutils literal notranslate"><span class="pre">conda-forge.yml</span></code></p>
 </section>
 <section id="conda-forge-is-now-citable">
-<h3>2020-05-22: <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> is now citable!<a class="headerlink" href="#conda-forge-is-now-citable" title="Permalink to this heading">¶</a></h3>
+<h3>2021-05-22: <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> is now citable!<a class="headerlink" href="#conda-forge-is-now-citable" title="Permalink to this heading">¶</a></h3>
 <p>You can now cite <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> using our <a class="reference external" href="https://doi.org/10.5281/zenodo.4774216">Zenodo entry</a>!
 This entry credits the entire <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> community for its hard work in building our
 amazing ecosystem.</p>
 </section>
 </section>
-<section id="id3">
-<h2>2020<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<section id="id4">
+<h2>2020<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <section id="moving-to-centos-7-and-centos-6-end-of-life">
 <h3>2020-12-16: Moving to CentOS 7 and CentOS 6 End-of-Life<a class="headerlink" href="#moving-to-centos-7-and-centos-6-end-of-life" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>’s compiler stack uses repackaged libraries from CentOS 6
@@ -437,8 +522,8 @@ generated with this admin command. Further, this admin command will only work on
 </ul>
 </section>
 </section>
-<section id="id5">
-<h2>2019<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<section id="id6">
+<h2>2019<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <section id="clang-9-0-0-and-gfortran-7-3-0-as-default-compilers-in-osx">
 <h3>2019-09-30: Clang 9.0.0 and gfortran 7.3.0 as default compilers in OSX<a class="headerlink" href="#clang-9-0-0-and-gfortran-7-3-0-as-default-compilers-in-osx" title="Permalink to this heading">¶</a></h3>
 <blockquote>
@@ -470,8 +555,8 @@ need help migrating.</p></li>
 </dl>
 </section>
 </section>
-<section id="id6">
-<h2>2018<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<section id="id7">
+<h2>2018<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
 <section id="the-rebuild-is-moving-along-nicely-with-almost-a-third-of-the-packages-completed">
 <h3>2018-10-12: The rebuild is moving along nicely with almost a third of the packages completed.<a class="headerlink" href="#the-rebuild-is-moving-along-nicely-with-almost-a-third-of-the-packages-completed" title="Permalink to this heading">¶</a></h3>
 <p>Recently completed are NumPy and Openblas which should open up much of the python numeric stack.
@@ -514,7 +599,19 @@ This is going to take a few months to get done so bear with us.</p>
 <li class="toctree-l1 current"><a class="reference internal" href="00_intro.html">User Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introduction.html">A brief introduction</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Announcements</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">2022</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">2023</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#conda-forge-google-group-is-now-read-only-move-to-discourse">2023-01-09: <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> Google Group is Now Read-only - Move to Discourse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conda-forge-staged-recipes-feedstock-creation-job-moved">2023-01-08: <code class="docutils literal notranslate"><span class="pre">conda-forge/staged-recipes</span></code> Feedstock Creation Job Moved</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2022</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#moving-to-conda-artifacts">2022-11-16: Moving to <code class="docutils literal notranslate"><span class="pre">.conda</span></code> Artifacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#releasing-python-3-8-14-3-9-14-and-3-10-7">2022-11-04: Releasing Python 3.8.14, 3.9.14, and 3.10.7</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conda-moving-to-calver">2022-09-27: Conda Moving to CalVer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dropping-python-3-7">2022-08-24: Dropping Python 3.7</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dropping-pypy-3-7">2022-08-17: Dropping PyPy 3.7</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#moving-to-visual-studio-toolchain-vc142">2022-08-11: Moving to Visual Studio toolchain vc142</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#azure-osx-vm-image-bumped-to-version-11">2022-07-22: Azure OSX VM Image Bumped to Version 11</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#packages-for-qt-pyqt-5-15-2-are-now-available">2022-04-23: Packages for Qt/PyQt 5.15.2 are now available</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#new-semi-automated-pr-labeling-in-conda-forge-staged-recipes">2022-04-20: New Semi-automated PR Labeling in conda-forge/staged-recipes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#circleci-and-drone-io-deprecated-for-new-feedstocks">2022-04-03: CircleCI and Drone.io Deprecated for New Feedstocks</a></li>
@@ -523,17 +620,17 @@ This is going to take a few months to get done so bear with us.</p>
 <li class="toctree-l4"><a class="reference internal" href="#default-branch-migration-from-master-to-main">2022-02-13: Default branch migration from <code class="docutils literal notranslate"><span class="pre">master</span></code> to <code class="docutils literal notranslate"><span class="pre">main</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">2021</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2021</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#centos-7-docker-images-are-now-the-default">2021-12-02: CentOS 7 docker images are now the default</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cloud-drone-io-no-longer-working">2021-11-17: <code class="docutils literal notranslate"><span class="pre">cloud.drone.io</span></code> no longer working</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#conda-forge-now-uses-mambabuild-as-default">2021-10-20: conda-forge now uses mambabuild as default</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gcc-10-and-clang-12-as-default-compilers-for-linux-and-macos">2021-10-13: GCC 10 and clang 12 as default compilers for Linux and macOS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#python-3-6-is-now-dropped-when-building-conda-forge-packages">2021-10-04: python 3.6 is now dropped when building conda-forge packages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#defaults-channel-is-now-dropped-when-building-conda-forge-packages">2021-09-30: <code class="docutils literal notranslate"><span class="pre">defaults</span></code> channel is now dropped when building conda-forge packages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#conda-forge-is-now-citable">2020-05-22: <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> is now citable!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conda-forge-is-now-citable">2021-05-22: <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> is now citable!</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">2020</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">2020</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#moving-to-centos-7-and-centos-6-end-of-life">2020-12-16: Moving to CentOS 7 and CentOS 6 End-of-Life</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#artifact-validation">2020-12-02: Artifact Validation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#compiler-upgrade-to-gcc-9-3-0">2020-10-08: Compiler Upgrade to <code class="docutils literal notranslate"><span class="pre">GCC</span></code> <code class="docutils literal notranslate"><span class="pre">9.3.0</span></code></a></li>
@@ -555,13 +652,13 @@ This is going to take a few months to get done so bear with us.</p>
 <li class="toctree-l4"><a class="reference internal" href="#python-2-7-and-vs2008-deprecation">2020-03-18: Python 2.7 and <code class="docutils literal notranslate"><span class="pre">vs2008</span></code> Deprecation</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">2019</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">2019</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#clang-9-0-0-and-gfortran-7-3-0-as-default-compilers-in-osx">2019-09-30: Clang 9.0.0 and gfortran 7.3.0 as default compilers in OSX</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#we-overhauled-the-blas-support-in-conda-forge">2019-03-28: We overhauled the blas support in conda-forge.</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#it-has-happened-conda-forge-has-migrated-to-the-latest-compilers">2019-01-22: It has happened! Conda-forge has migrated to the latest compilers 🎉.</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">2018</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">2018</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#the-rebuild-is-moving-along-nicely-with-almost-a-third-of-the-packages-completed">2018-10-12: The rebuild is moving along nicely with almost a third of the packages completed.</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#a-minimal-python-3-7-build-is-now-available-across-all-platforms-and-both-compilers">2018-09-24: A minimal python 3.7 build is now available across all platforms and both compilers!</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#deprecation-notice-for-python-3-5">2018-09-24:  Deprecation notice for Python 3.5</a></li>
@@ -648,7 +745,7 @@ This is going to take a few months to get done so bear with us.</p>
         <li class="right" >
           <a href="introduction.html" title="A brief introduction"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../index.html">conda-forge 2022.07.16 documentation</a> &#187;</li>
+    <li><a href="../index.html">conda-forge 2023.02.05 documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="00_intro.html" >User Documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Announcements</a></li> 
@@ -657,8 +754,8 @@ This is going to take a few months to get done so bear with us.</p>
     </div>
 
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2022, conda-forge.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+        &#169; Copyright 2016-2023, conda-forge.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>

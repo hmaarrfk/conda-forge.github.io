@@ -6,9 +6,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Maintaining packages &#8212; conda-forge 2022.07.16 documentation</title>
+    <title>Maintaining packages &#8212; conda-forge 2023.02.05 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
@@ -18,6 +18,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
 
     
     
@@ -56,7 +57,7 @@
         <li class="right" >
           <a href="adding_pkgs.html" title="Contributing packages"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../index.html">conda-forge 2022.07.16 documentation</a> &#187;</li>
+    <li><a href="../index.html">conda-forge 2023.02.05 documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="00_intro.html" accesskey="U">Maintainer Documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Maintaining packages</a></li> 
@@ -132,6 +133,10 @@ enabled <a class="reference external" href="https://help.github.com/en/articles/
 <section id="how-does-regro-cf-autotick-bot-create-automatic-version-updates">
 <h5><strong>How does regro-cf-autotick-bot create automatic version updates?</strong><a class="headerlink" href="#how-does-regro-cf-autotick-bot-create-automatic-version-updates" title="Permalink to this heading">¶</a></h5>
 <p>The <a class="reference external" href="https://github.com/regro/autotick-bot">regro-cf-autotick-bot</a> continuously searches on a loop for any PyPI releases, GitHub releases, and any other sources of versions when any updates are released. The source code that gets executed in the loop comes from the <a class="reference external" href="https://github.com/regro/cf-scripts">cf-scripts repository</a>, which contains the code to detect versions and submit PRs. Visit <a class="reference external" href="https://regro.github.io/cf-scripts/index.html">cf-scripts</a> to read more about it.</p>
+<p>The bot creates updates via inspection of the upstream release and will always update the <code class="docutils literal notranslate"><span class="pre">source</span></code> section and build version in the <a class="reference external" href="https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#">recipe metadata</a>.
+As an experimental feature, the autotick bot can also be configured to verify or update the recipe’s requirements for <a class="reference external" href="https://github.com/conda-incubator/grayskull">Grayskull</a>-compatible recipes.
+This may help maintain packages with frequent requirements changes or specific requirements version pins, however this feature is not as extensively verified and proposed updates should be reviewed.
+(See the <a class="reference internal" href="conda_forge_yml.html#bot"><span class="std std-ref">bot</span></a> section in <code class="docutils literal notranslate"><span class="pre">conda-forge.yml</span></code>)</p>
 <p>Sometimes the bot may take several hours to search for these updates. You can also check <a class="reference external" href="https://conda-forge.org/status/#version_updates">status of version updates</a> for all the pending version updates. These version updates are pending either because an updated version was found, but a PR wasn’t opened yet, or because the bot might have had an error while making the PR.
 If you can’t find a version here, then the chances are that the bot couldn’t find it either.</p>
 <p>The bot stops making version update PRs when the package feedstock has three or more open version update PRs. The package’s maintainer should close or merge those PRs for the bot to work correctly for future version updates.</p>
@@ -199,11 +204,11 @@ If you can’t find a version here, then the chances are that the bot couldn’t
 <section id="rerendering-with-conda-smithy-locally">
 <span id="dev-rerender-local"></span><h3>Rerendering with conda-smithy locally<a class="headerlink" href="#rerendering-with-conda-smithy-locally" title="Permalink to this heading">¶</a></h3>
 <p>The first step is to install <code class="docutils literal notranslate"><span class="pre">conda-smithy</span></code> in your root environment.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge conda-smithy
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>conda-smithy
 </pre></div>
 </div>
 <p>Commit all changes and from the root directory of the feedstock, type:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda smithy rerender -c auto
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>smithy<span class="w"> </span>rerender<span class="w"> </span>-c<span class="w"> </span>auto
 </pre></div>
 </div>
 <p>Optionally one can commit the changes manually.
@@ -221,25 +226,38 @@ To do this drop <code class="docutils literal notranslate"><span class="pre">-c<
 </ul>
 </section>
 </section>
+<section id="updating-for-newly-released-python-version">
+<h2>Updating for newly released Python version<a class="headerlink" href="#updating-for-newly-released-python-version" title="Permalink to this heading">¶</a></h2>
+<p>When a new Python version is released (e.g. <code class="docutils literal notranslate"><span class="pre">3.11</span></code>), an automatic migration process is triggered that will have <code class="docutils literal notranslate"><span class="pre">&#64;regro-cf-autotick-bot</span></code> eventually automatically open pull requests to all feedstocks, updating their CI setup to include the new Python version in the build matrix. After veryfing that the PR build passes, that automatic PR can simply be merged to roll out packages for new Python version.
+This process takes time, though, and pull requests will not be opened to all feedstocks at the same time to not overload CI. The current status of the migration can be tracked on the <a class="reference external" href="https://conda-forge.org/status/#current_migrations">migration status page</a> and there maintainers can verify that their feedstock is listed under the <code class="docutils literal notranslate"><span class="pre">AWAITING-PR</span></code> dropdown list.</p>
+</section>
 <section id="testing-changes-locally">
 <h2>Testing changes locally<a class="headerlink" href="#testing-changes-locally" title="Permalink to this heading">¶</a></h2>
 <p>If you have docker installed on your system, you can test builds locally on your machine under the same settings as it is built by our <a class="reference internal" href="../misc/00_intro.html#term-CI"><span class="xref std std-term">CI</span></a>.</p>
 <p>If you want to build and test updates to a feedstock locally, go to the root
 feedstock directory and run:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python build-locally.py
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build-locally.py
 </pre></div>
 </div>
 <p>This will prompt you to choose one of the <code class="docutils literal notranslate"><span class="pre">*.yaml</span></code> config files in <code class="docutils literal notranslate"><span class="pre">.ci_support/</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">shyaml</span></code> is needed to parse the <code class="docutils literal notranslate"><span class="pre">docker_image</span></code> from these files. Otherwise the build will use the default <code class="docutils literal notranslate"><span class="pre">docker_image</span></code>.</p>
 <p>Alternatively, you can specify ahead which config to use with e.g. (assuming you wish to build and test python 3.6 on Linux, and such a config file exists at <code class="docutils literal notranslate"><span class="pre">.ci_support/linux_python3.6.yaml</span></code>):</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python build-locally.py linux_python3.6
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build-locally.py<span class="w"> </span>linux_python3.6
 </pre></div>
 </div>
 <p>Note that for long build logs one can do</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python build-locally.py <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee log.txt
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build-locally.py<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>log.txt
 </pre></div>
 </div>
 <p>to save it in a text file for future inspection.</p>
-<p>Once built, you can find the finished package in the <code class="docutils literal notranslate"><span class="pre">build_artifacts</span></code> directory in your feedstock.</p>
+<p>Once built, you can find the finished package in the <code class="docutils literal notranslate"><span class="pre">build_artifacts</span></code> directory in your feedstock, which can be used as a channel.</p>
+<p>To create a new environment <code class="docutils literal notranslate"><span class="pre">my-new-env</span></code> using conda, and which will contain the new built package <code class="docutils literal notranslate"><span class="pre">my-package</span></code>, run:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>my-new-env<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;file://</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">/build_artifacts&quot;</span><span class="w"> </span>my-package
+</pre></div>
+</div>
+<p>If the new built package depends on another one to be working, i.e. <code class="docutils literal notranslate"><span class="pre">other-package</span></code>, and which is available on <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> channel for example, you can run:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>my-new-env<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;file://</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">/build_artifacts&quot;</span><span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>my-package<span class="w"> </span>other-package
+</pre></div>
+</div>
 </section>
 <section id="downloading-prebuilt-packages-from-ci">
 <h2>Downloading prebuilt packages from CI<a class="headerlink" href="#downloading-prebuilt-packages-from-ci" title="Permalink to this heading">¶</a></h2>
@@ -259,8 +277,15 @@ This is useful when trying out packages built in a PR. But you first need to dow
 <p>Sometimes mistakes happen and a broken package ends up being uploaded to the conda-forge channel.</p>
 <p>If the only issue is in the package metadata, we can directly patch it using
 the <a class="reference external" href="https://github.com/conda-forge/conda-forge-repodata-patches-feedstock">repo data patches feedstock</a>.
-Please make a PR there to add a patch. In order to ensure future versions have the required changes, you also
-need to change the recipe to reflect the metadata changes.</p>
+If this is the case, the following general guidelines should be followed:
+1. Update the feedstocks recipe to ensure future builds do not propagate the issue with a new build number.
+2. Please make a PR there to add a patch. The patch should specify as much has possible the versions and times when the packages were generated. It may use the following information</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The current timestamp, you may generate it with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-c</span> <span class="pre">&quot;import</span> <span class="pre">time;</span> <span class="pre">print(f'{time.time():.0f}000')&quot;</span></code>.</p></li>
+<li><p>The problematic version and build numbers of the packages to affect.</p></li>
+</ul>
+</div></blockquote>
 <p>If instead the actual contents of the package are broken, the following steps will
 remove broken packages from the <code class="docutils literal notranslate"><span class="pre">main</span></code> channel:</p>
 <ol class="arabic simple">
@@ -275,7 +300,12 @@ remove broken packages from the <code class="docutils literal notranslate"><span
 <p>If a package is no longer maintained <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> will <em>archive</em>
 the repository. An archived repository can no longer accept PRs and issues, which prevents people and <code class="docutils literal notranslate"><span class="pre">regro-cf-autotick-bot</span></code> from updating the
 package (an example would be to re-render the feedstock to support new Python versions). Note that this <strong>does not</strong> remove the existing packages, those will still be available.</p>
-<p>If you believe a feedstock should be archived, please contact <a class="reference external" href="https://github.com/orgs/conda-forge/teams/core">&#64;conda-forge/core</a>.</p>
+<p>If you believe a feedstock should be archived, please do the following:</p>
+<ol class="arabic simple">
+<li><p>Raise an issue on the feedstock asking if it can be archived (CC the maintainer team and &#64;conda-forge/core)</p></li>
+<li><p>Fork <a class="reference external" href="https://github.com/conda-forge/admin-requests">conda-forge/admin-requests</a> and add a new text file in the <code class="docutils literal notranslate"><span class="pre">archive</span></code> directory with the repo name.</p></li>
+<li><p>Open a PR and cross-reference the issue raised in step 1.</p></li>
+</ol>
 </section>
 <section id="updating-the-maintainer-list">
 <span id="maint-updating-maintainers"></span><h2>Updating the maintainer list<a class="headerlink" href="#updating-the-maintainer-list" title="Permalink to this heading">¶</a></h2>
@@ -337,6 +367,7 @@ To contact core, ping them by mentioning &#64;conda-forge/core in a comment or, 
 <li class="toctree-l4"><a class="reference internal" href="#when-to-rerender">When to rerender</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#updating-for-newly-released-python-version">Updating for newly released Python version</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#testing-changes-locally">Testing changes locally</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#downloading-prebuilt-packages-from-ci">Downloading prebuilt packages from CI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#removing-broken-packages">Removing broken packages</a></li>
@@ -419,7 +450,7 @@ To contact core, ping them by mentioning &#64;conda-forge/core in a comment or, 
         <li class="right" >
           <a href="adding_pkgs.html" title="Contributing packages"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../index.html">conda-forge 2022.07.16 documentation</a> &#187;</li>
+    <li><a href="../index.html">conda-forge 2023.02.05 documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="00_intro.html" >Maintainer Documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Maintaining packages</a></li> 
@@ -428,8 +459,8 @@ To contact core, ping them by mentioning &#64;conda-forge/core in a comment or, 
     </div>
 
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2022, conda-forge.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+        &#169; Copyright 2016-2023, conda-forge.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>

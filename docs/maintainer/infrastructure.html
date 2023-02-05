@@ -6,9 +6,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Infrastructure &#8212; conda-forge 2022.07.16 documentation</title>
+    <title>Infrastructure &#8212; conda-forge 2023.02.05 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
@@ -18,6 +18,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
 
     
     
@@ -56,7 +57,7 @@
         <li class="right" >
           <a href="00_intro.html" title="Maintainer Documentation"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../index.html">conda-forge 2022.07.16 documentation</a> &#187;</li>
+    <li><a href="../index.html">conda-forge 2023.02.05 documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="00_intro.html" accesskey="U">Maintainer Documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Infrastructure</a></li> 
@@ -184,6 +185,11 @@ bot. This functionality is currently experimental. You can find more details
 <a class="reference internal" href="#automerge"><span class="std std-ref">here</span></a>.
 Please open issue on <code class="docutils literal notranslate"><span class="pre">regro/cf-scripts</span></code> for any feedback, bugs, and/or questions!</p>
 </section>
+<section id="conda-forge-admin-please-remove-bot-automerge">
+<h3>&#64;conda-forge-admin, please remove bot automerge<a class="headerlink" href="#conda-forge-admin-please-remove-bot-automerge" title="Permalink to this heading">¶</a></h3>
+<p>Entering this command in the title or comment of an issue will instruct the admin bot to
+open a PR to disable automerge, undoing the <code class="docutils literal notranslate"><span class="pre">please</span> <span class="pre">add</span> <span class="pre">bot</span> <span class="pre">automerge</span></code> command.</p>
+</section>
 <section id="conda-forge-admin-please-add-python-2-7">
 <h3>&#64;conda-forge-admin, please add python 2.7<a class="headerlink" href="#conda-forge-admin-please-add-python-2-7" title="Permalink to this heading">¶</a></h3>
 <p>Entering this command in the title of an issue will instruct the admin bot to
@@ -219,8 +225,8 @@ If that doesn’t work, a close/open will kick off a new build. You can also use
 <h4>Using Azure for <em>everything</em><a class="headerlink" href="#using-azure-for-everything" title="Permalink to this heading">¶</a></h4>
 <p>Azure is the default provider for Linux and OSX.  To use Azure for everything, add the following to <code class="docutils literal notranslate"><span class="pre">conda-forge.yml</span></code> in the root
 of the feedstock.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">provider</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">win</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">win</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -239,8 +245,8 @@ and click the “Sync accounts” button.</p>
 <h4>Enabling Travis<a class="headerlink" href="#enabling-travis" title="Permalink to this heading">¶</a></h4>
 <p>TravisCI should only be needed to build recipes on OSX, if there is a strange failure on Azure.</p>
 <p>Enable a build by adding the following to <code class="docutils literal notranslate"><span class="pre">conda-forge.yml</span></code> in the root of the feedstock.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">provider</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">osx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">travis</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">osx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">travis</span>
 </pre></div>
 </div>
 <p>For IBM Power 8+ builds, add the name of your feedstock to the list <a class="reference external" href="https://github.com/conda-forge/conda-forge-pinning-feedstock/blob/master/recipe/migrations/arch_rebuild.txt">here</a>
@@ -255,9 +261,9 @@ Linux packages. It can optionally build OSX packages.</p>
 <section id="using-circle-for-both-linux-and-osx">
 <h4>Using Circle for both Linux and OSX<a class="headerlink" href="#using-circle-for-both-linux-and-osx" title="Permalink to this heading">¶</a></h4>
 <p>To use CircleCI for OSX, add the following to <code class="docutils literal notranslate"><span class="pre">conda-forge.yml</span></code> in the root of the feedstock.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">provider</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">osx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">circle</span><span class="w"></span>
-<span class="w">  </span><span class="nt">linux</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">circle</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">osx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">circle</span>
+<span class="w">  </span><span class="nt">linux</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">circle</span>
 </pre></div>
 </div>
 <p>CircleCI for OSX should be used for OSX, only when TravisCI resources (50 minutes of build time per job) are not enough as CircleCI gives more resources (2 hours of build time per job).</p>
@@ -287,7 +293,8 @@ Linux packages. It can optionally build OSX packages.</p>
 <section id="drone-io">
 <h3>Drone.io<a class="headerlink" href="#drone-io" title="Permalink to this heading">¶</a></h3>
 <p>We use <a class="reference external" href="https://drone.io">Drone.io</a> for Linux ARMv8 builds. To enable these builds on your feedstock, make a pull request to add your feedstock to the list
-here <a class="reference external" href="https://github.com/conda-forge/conda-forge-pinning-feedstock/blob/master/recipe/migrations/arch_rebuild.txt">https://github.com/conda-forge/conda-forge-pinning-feedstock/blob/master/recipe/migrations/arch_rebuild.txt</a>.</p>
+in the <a class="reference external" href="https://github.com/conda-forge/conda-forge-pinning-feedstock/blob/master/recipe/migrations/arch_rebuild.txt">arch_rebuild.txt file</a>.
+Read <a class="reference internal" href="knowledge_base.html#using-arch-rebuild"><span class="std std-ref">Using arch_rebuild.txt</span></a> to learn more.</p>
 </section>
 <section id="github-actions">
 <h3>GitHub Actions<a class="headerlink" href="#github-actions" title="Permalink to this heading">¶</a></h3>
@@ -383,7 +390,7 @@ compiler versions above, we have removed the <code class="docutils literal notra
 <span id="output-validation"></span><h2>Output Validation and Feedstock Tokens<a class="headerlink" href="#output-validation-and-feedstock-tokens" title="Permalink to this heading">¶</a></h2>
 <p>As of writing, <code class="docutils literal notranslate"><span class="pre">anaconda.org</span></code> does not support generating API tokens that are scoped
 to allow uploads for some packages but not others. In order to secure feedstock uploads,
-so that, e.g., the maintainers of the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> feedstock cannot push a <code class="docutils literal notranslate"><span class="pre">python</span></code> version,
+so that, e.g., the maintainers of the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> feedstock cannot push a <code class="docutils literal notranslate"><span class="pre">python</span></code> package,
 we use a package staging process and issue secret tokens, unique to each feedback. This process
 works as follows.</p>
 <ol class="arabic simple">
@@ -402,6 +409,13 @@ sure <code class="docutils literal notranslate"><span class="pre">conda_forge_ou
 your feedstock with the latest version of <code class="docutils literal notranslate"><span class="pre">conda-smithy</span></code>. Finally, new packages that are added to
 feedstocks are registered automatically and once uploaded successfully, no other feedstock
 will be able to upload packages with the same name.</p>
+<p>Sometimes, however, it might make better sense to generate a package from a different
+feedstock, say, due to package renaming or re-structuring. In this case, you may need
+to add the new feedstock to the <a class="reference external" href="https://github.com/conda-forge/feedstock-outputs">feedstock-outputs</a> map.
+If this is not done, then the output validation process will block the package from being
+uploaded from the new feedstock, by design.
+Once this is done correctly and the package is uploaded,
+you can then request the conda-forge core devs to archive the old feedstock.</p>
 </section>
 </section>
 
@@ -440,6 +454,7 @@ will be able to upload packages with the same name.</p>
 <li class="toctree-l4"><a class="reference internal" href="#conda-forge-admin-please-ping-conda-forge-team">&#64;conda-forge-admin, please ping conda-forge/&lt;team&gt;</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#conda-forge-admin-please-rerun-bot">&#64;conda-forge-admin, please rerun bot</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#conda-forge-admin-please-add-bot-automerge">&#64;conda-forge-admin, please add bot automerge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conda-forge-admin-please-remove-bot-automerge">&#64;conda-forge-admin, please remove bot automerge</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#conda-forge-admin-please-add-python-2-7">&#64;conda-forge-admin, please add python 2.7</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#conda-forge-admin-please-add-user-username">&#64;conda-forge-admin, please add user &#64;username</a></li>
 </ul>
@@ -552,7 +567,7 @@ will be able to upload packages with the same name.</p>
         <li class="right" >
           <a href="00_intro.html" title="Maintainer Documentation"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../index.html">conda-forge 2022.07.16 documentation</a> &#187;</li>
+    <li><a href="../index.html">conda-forge 2023.02.05 documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="00_intro.html" >Maintainer Documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Infrastructure</a></li> 
@@ -561,8 +576,8 @@ will be able to upload packages with the same name.</p>
     </div>
 
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2022, conda-forge.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+        &#169; Copyright 2016-2023, conda-forge.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>

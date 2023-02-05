@@ -67,7 +67,9 @@ FAQ
 
 :ref:`(Q) <mfaq_anaconda_delay>` **Why does my new version appear on Anaconda Cloud, but is not installable with conda?**
 
-  For certain, high-traffic channels (main & conda-forge), Anaconda uses a `CDN <https://cloudflare.com/learning/cdn/what-is-a-cdn/>`__ to decrease costs. The CDN is only reindexed every 20 minutes, however `Anaconda.org <https://anaconda.org>`__ uses the original channel that the CDN mirrors.  Therefore, packages will show up on the `Anaconda Cloud <https://anaconda.org>`__ about 20 to 40 minutes before they are downloadable via conda.  You can use ``conda search <pkg>``  to see if the package is installable, because this command reads from the CDN.
+  For certain, high-traffic channels (main & conda-forge), Anaconda uses a `CDN <https://cloudflare.com/learning/cdn/what-is-a-cdn/>`__ to decrease costs. Therefore, packages will show up on the `Anaconda Cloud <https://anaconda.org>`__ about 10 minutes before they are downloadable via conda.  You can use ``conda search <pkg>``  to see if the package is installable, because this command reads from the CDN.
+
+  If the CDN sync is not happening timely, please check the `status page <https://conda-forge.org/status/>`_ for the CDN cloning status and see if any problem occurs. If the clone is not sync'ing, you can open a CDN Issue in the `Anaconda Issues repo <https://github.com/ContinuumIO/anaconda-issues>`_.
 
 .. _mfaq_mamba_local:
 
@@ -79,7 +81,7 @@ FAQ
 
   - ``conda install boa -c conda-forge``
   - ``conda mambabuild myrecipe``
-  
+
   For more details visit `this <https://boa-build.readthedocs.io/en/latest/mambabuild.html>`__ page.
 
 .. _mfaq_conda_verify:
@@ -181,3 +183,15 @@ FAQ
   .. note::
 
     Even if the maintainer isn't active anymore, we generally like to keep them in the list of maintainers and not remove them, in case they want to take up maintenance at a later date.
+
+.. _mfaq_changes_to_major_projects:
+
+:ref:`(Q) <mfaq_changes_to_major_projects>` **Does ``conda-forge`` ever make significant changes or apply code patches to significant upstream packages?**
+
+  We generally try to avoid changes, but there are many notable exceptions and we have no set policy. These changes currently fall into
+  a few categories. Upstream projects that violate our community norms or pose significant security risks through their policies may
+  be changed so that they can be distributed on ``conda-forge``. In many cases though, these projects are not distributed at all. We
+  do employ extensive changes to project build scripts in order to properly build and install projects into conda environments.
+  Finally, in some cases we add, enable, or disable features in specific projects to ensure they are broadly compatible with the
+  ``conda-forge`` package set. The set of patches/changes we apply is always located in the feedstock that built the package. We
+  also maintain a list of important packages with changes in our documentation.

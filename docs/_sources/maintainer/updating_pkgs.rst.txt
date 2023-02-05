@@ -67,6 +67,11 @@ When a new version of a package is released on PyPI/CRAN/.., we have a bot that 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 The `regro-cf-autotick-bot <https://github.com/regro/autotick-bot>`__ continuously searches on a loop for any PyPI releases, GitHub releases, and any other sources of versions when any updates are released. The source code that gets executed in the loop comes from the `cf-scripts repository <https://github.com/regro/cf-scripts>`__, which contains the code to detect versions and submit PRs. Visit `cf-scripts <https://regro.github.io/cf-scripts/index.html>`__ to read more about it.
 
+The bot creates updates via inspection of the upstream release and will always update the ``source`` section and build version in the `recipe metadata <https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#>`_.
+As an experimental feature, the autotick bot can also be configured to verify or update the recipe's requirements for `Grayskull <https://github.com/conda-incubator/grayskull>`_-compatible recipes. 
+This may help maintain packages with frequent requirements changes or specific requirements version pins, however this feature is not as extensively verified and proposed updates should be reviewed.
+(See the :ref:`bot` section in ``conda-forge.yml``)
+
 Sometimes the bot may take several hours to search for these updates. You can also check `status of version updates <https://conda-forge.org/status/#version_updates>`__ for all the pending version updates. These version updates are pending either because an updated version was found, but a PR wasn't opened yet, or because the bot might have had an error while making the PR.
 If you can't find a version here, then the chances are that the bot couldn't find it either.
 
@@ -165,6 +170,11 @@ We need to re-render when there are changes in the following parts of the feedst
 - Updates in conda-forge pinning that affect the feedstock.
 - Build issues that a feedstock configuration update will fix (follow us on `gitter <https://gitter.im/conda-forge/conda-forge.github.io>`_ to know about those).
 
+Updating for newly released Python version
+==========================================
+
+When a new Python version is released (e.g. ``3.11``), an automatic migration process is triggered that will have ``@regro-cf-autotick-bot`` eventually automatically open pull requests to all feedstocks, updating their CI setup to include the new Python version in the build matrix. After veryfing that the PR build passes, that automatic PR can simply be merged to roll out packages for new Python version.
+This process takes time, though, and pull requests will not be opened to all feedstocks at the same time to not overload CI. The current status of the migration can be tracked on the `migration status page <https://conda-forge.org/status/#current_migrations>`_ and there maintainers can verify that their feedstock is listed under the ``AWAITING-PR`` dropdown list.
 
 Testing changes locally
 =======================
@@ -196,7 +206,19 @@ Note that for long build logs one can do
 
 to save it in a text file for future inspection.
 
-Once built, you can find the finished package in the ``build_artifacts`` directory in your feedstock.
+Once built, you can find the finished package in the ``build_artifacts`` directory in your feedstock, which can be used as a channel.
+
+To create a new environment ``my-new-env`` using conda, and which will contain the new built package ``my-package``, run:
+
+.. code-block:: shell
+
+    conda create -n my-new-env -c "file://${PWD}/build_artifacts" my-package
+
+If the new built package depends on another one to be working, i.e. ``other-package``, and which is available on ``conda-forge`` channel for example, you can run:
+
+.. code-block:: shell
+
+    conda create -n my-new-env -c "file://${PWD}/build_artifacts" -c conda-forge my-package other-package
 
 
 Downloading prebuilt packages from CI
@@ -222,8 +244,12 @@ Sometimes mistakes happen and a broken package ends up being uploaded to the con
 
 If the only issue is in the package metadata, we can directly patch it using
 the `repo data patches feedstock <https://github.com/conda-forge/conda-forge-repodata-patches-feedstock>`__.
-Please make a PR there to add a patch. In order to ensure future versions have the required changes, you also
-need to change the recipe to reflect the metadata changes.
+If this is the case, the following general guidelines should be followed:
+1. Update the feedstocks recipe to ensure future builds do not propagate the issue with a new build number.
+2. Please make a PR there to add a patch. The patch should specify as much has possible the versions and times when the packages were generated. It may use the following information
+   
+   - The current timestamp, you may generate it with ``python -c "import time; print(f'{time.time():.0f}000')"``.
+   - The problematic version and build numbers of the packages to affect.
 
 If instead the actual contents of the package are broken, the following steps will
 remove broken packages from the ``main`` channel:
@@ -241,7 +267,12 @@ If a package is no longer maintained ``conda-forge`` will *archive*
 the repository. An archived repository can no longer accept PRs and issues, which prevents people and ``regro-cf-autotick-bot`` from updating the
 package (an example would be to re-render the feedstock to support new Python versions). Note that this **does not** remove the existing packages, those will still be available.
 
-If you believe a feedstock should be archived, please contact `@conda-forge/core <https://github.com/orgs/conda-forge/teams/core>`__.
+If you believe a feedstock should be archived, please do the following:
+
+1. Raise an issue on the feedstock asking if it can be archived (CC the maintainer team and @conda-forge/core)
+2. Fork `conda-forge/admin-requests <https://github.com/conda-forge/admin-requests>`__ and add a new text file in the ``archive`` directory with the repo name.
+3. Open a PR and cross-reference the issue raised in step 1.
+
 
 .. _maint_updating_maintainers:
 

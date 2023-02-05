@@ -5,8 +5,109 @@ Announcements
 
 Our announcements are published to an RSS feed `here <https://conda-forge.org/docs/news.rss>`_.
 
+2023
+----
+
+2023-01-09: ``conda-forge`` Google Group is Now Read-only - Move to Discourse
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We have made the ``conda-forge`` Google Group read-only. Please use the new 
+``conda-forge`` `discourse forum <https://conda.discourse.group/c/pkg-building/conda-forge/25>`_, 
+our `Gitter room <https://gitter.im/conda-forge/conda-forge.github.io>`_, or it's `Matrix/Element 
+counterpart <https://app.element.io/#/room/#conda-forge-space:matrix.org>`_ instead.
+
+
+2023-01-08: ``conda-forge/staged-recipes`` Feedstock Creation Job Moved
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We have moved the CI job that makes new feedstocks to our 
+`conda-forge/admin-requests <https://github.com/conda-forge/admin-requests>`_ 
+repo. The new location is reflected in the various links on repos and our status page.
+
 2022
 ----
+
+2022-11-16: Moving to ``.conda`` Artifacts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``conda-forge`` is moving to producing ``conda`` artifacts in the version 2 package
+format (also known as ``.conda``). These artifacts allow for more efficient indexing
+and maintenance of the ecosystem. Our admin migrations bot will begin making PRs to
+feedstocks to change them over to the new artifact format. You will need ``conda``
+version 4.7 or later to use the new ``.conda`` artifacts. Please leave a comment on
+`this issue <https://github.com/conda-forge/conda-forge.github.io/issues/1586>`__
+if you encounter problems or have feedback.
+
+
+2022-11-04: Releasing Python 3.8.14, 3.9.14, and 3.10.7
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The CPython versions 3.8.14, 3.9.14, and 3.10.7 were released some weeks ago to mitigate `CVE-2020-10735 <https://nvd.nist.gov/vuln/detail/CVE-2020-10735>`__.
+The chosen mitigation strategy might cause errors (e.g. ``ValueError: Exceeds the limit (4300) for integer string conversion``) in some libraries.
+If you are affected, please read the `announcement <https://docs.python.org/release/3.10.7/whatsnew/3.10.html#notable-security-feature-in-3-10-7>`__
+and learn about the available workarounds in the  `CPython documentation <https://docs.python.org/3/library/stdtypes.html#integer-string-conversion-length-limitation>`__.
+
+The conda-forge team `has decided <https://github.com/conda-forge/python-feedstock/pull/579>`__ to build and publish these releases with no additional changes.
+The new packages will be made available on or after 2022-11-10, following `Anaconda's decision <https://anaconda.cloud/anaconda-repo-news>`__.
+
+
+2022-09-27: Conda Moving to CalVer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Conda is moving to CalVer per `CEP 8 <https://github.com/conda-incubator/ceps/blob/main/cep-8.md>`_.
+The first CalVer and last SemVer should be ``22.9.0`` and ``4.14.0`` respectively. This change
+maintains version order so you should not expect any issues.
+
+2022-08-24: Dropping Python 3.7
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Conda-Forge has been providing support for Python 3.7 for 4 years now.
+Increasingly projects are moving off it (particularly in the PyData community).
+With Python 3.11's release coming around the corner (October 3rd), conda-forge
+plans to drop Python 3.7 support when Python 3.11 comes out. This will lighten
+the load on conda-forge infrastructure and make room for the new versions the
+community would like to support.
+
+More details can be found in issue `conda-forge-pinning-feedstock#2623`_.
+Feedback is welcome there.
+
+.. _`conda-forge-pinning-feedstock#2623`: https://github.com/conda-forge/conda-forge-pinning-feedstock/issues/2623
+
+2022-08-17: Dropping PyPy 3.7
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Conda-forge has supported PyPy since almost 2.5 years now, and the initial
+PyPy 3.7 builds have been superseded in almost all aspects by the newer builds
+for 3.8 & 3.9. We are therefore dropping PyPy 3.7 as a supported python version,
+and will keep focusing on the more contemporary PyPy builds.
+
+2022-08-11: Moving to Visual Studio toolchain vc142
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Microsoft has deprecated the Visual Studio (VS) 2017 compiler and removed it
+from all the CI they control (notably Azure Pipelines & Github Actions).
+This means that the default toolchain (== C/C++ compiler, linker, standard
+libraries, and related utilities) of that VS version - vc141 - is getting less
+and less use in upstream libraries (because public hosted CI doesn't use it
+anymore by default), and therefore support for it is bitrotting
+at an accelerating pace. We are therefore
+`planning <https://github.com/conda-forge/conda-forge-pinning-feedstock/pull/3167>`_
+to move our toolchain on windows to vc142 (the default in VS2019) in two weeks,
+on 2022-08-25.
+
+This will not affect you as a general user of conda-forge packages on windows;
+the only impact is that if you are locally compiling against artefacts produced
+by conda-forge and are still using VS2017 yourself, you will need to upgrade your
+compiler (VS2019 is a drop-in replacement & ABI-compatible).
+
+2022-07-22: Azure OSX VM Image Bumped to Version 11
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Azure is removing their OSX 10.15 VM image and so we are bumping to 11.
+You will need to rerender your feedstock to get this change. Feedstocks
+without the new VM image specified will not build after Azure fully
+removes the old image. Please get in touch with us if you have issues
+or questions!
 
 
 2022-04-23: Packages for Qt/PyQt 5.15.2 are now available
@@ -151,7 +252,7 @@ You can get the previous behaviour by using the ``channel_sources`` setting in
 ``conda-forge.yml``
 
 
-2020-05-22: ``conda-forge`` is now citable!
+2021-05-22: ``conda-forge`` is now citable!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You can now cite ``conda-forge`` using our `Zenodo entry <https://doi.org/10.5281/zenodo.4774216>`_!

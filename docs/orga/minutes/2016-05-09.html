@@ -6,9 +6,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>2016-05-09 Exceptional meeting regarding build customization &#8212; conda-forge 2022.07.16 documentation</title>
+    <title>2016-05-09 Exceptional meeting regarding build customization &#8212; conda-forge 2023.02.05 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/cloud.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
@@ -18,6 +18,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
 
     
     
@@ -56,7 +57,7 @@
         <li class="right" >
           <a href="2016-05-13.html" title="2016-05-13"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../../index.html">conda-forge 2022.07.16 documentation</a> &#187;</li>
+    <li><a href="../../index.html">conda-forge 2023.02.05 documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="../00_intro.html" >Organisation Documentation</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="00_intro.html" accesskey="U">Core team meeting minutes</a> &#187;</li>
@@ -105,12 +106,7 @@
 </div>
 </li>
 <li><p>Phil points out that global config.yaml might still need code changes for new versions of, say, Python.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>*   MichaelS  says no, theres surely ways we can express things like latest 2  versions - just question of how to technically achieve.
-</pre></div>
-</div>
-</li>
-<li><p>Ray:  filter things out of global config.yaml when they are not used in a  recipe (so that matrix dimensions are not needlessly added)</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>*   Ullrich:  However, one must be careful to not filter out indirect dependencies  that are not explicitly named in meta.yaml, but were intentionally added  to config.yaml. (example: meta.yaml lists h5py as a requirement, and  config.yaml restricts the indirect hdf5 dependency to a particular  variant of the hdf5 package). It is safer to err on the too much side.
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>*   MichaelS  says no, theres surely ways we can express things like 
 </pre></div>
 </div>
 </li>
@@ -118,21 +114,40 @@
 </li>
 </ul>
 </li>
+</ul>
+<p>latest 2  versions</p>
+<ul>
+<li><p>just question of how to technically achieve.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> *   Ray:  filter things out of global config.yaml when they are not used in a  recipe (so that matrix dimensions are not needlessly added)
+
+         *   Ullrich:  However, one must be careful to not filter out indirect dependencies  that are not explicitly named in meta.yaml, but were intentionally added  to config.yaml. (example: meta.yaml lists h5py as a requirement, and  config.yaml restricts the indirect hdf5 dependency to a particular  variant of the hdf5 package). It is safer to err on the 
+</pre></div>
+</div>
+</li>
+</ul>
+<p>too much
+side.</p>
+<ul>
 <li><p>Build environment specification:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>*   Conda-build 848 has bootstrap environment: user creates an env, that env is captured as build requirements for another recipe.
-
-        *   Phil: this ruins reproducibility, since it depends on the setup of the users system at build time.
-
-                *   Stuart: were already not reproducible, and this bootstrap doesnt make things worse.
-    *   MichaelS:  if this is used to hard-pin build-time dependencies, it may actually  help reproducibility.  Hard-pinnning at build time is orthogonal to this  PR, but may be easier to achieve with it.
-    *   Ullrich:  if the contents of the build environment are recorded in index.json,  one can recreate the bootstrap environment at any time (or equivalently,  create config.yaml from that information), subject to the degree of  accuracy of the recorded data (e.g. are the source channels recorded, or  only version numbers and build strings?)
-
-        *   MichaelS,  Kale concerned that people may include too many unnecessary packages in  build requirements this way, out of carelessness or ignorance
-
-                *   Ullrich: not a big deal - runtime dependencies are what really matter.
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>*   Conda-build 848 has 
 </pre></div>
 </div>
 </li>
+</ul>
+<p>bootstrap
+environment: user creates an env, that env is captured as build requirements for another recipe.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>            *   Phil: this ruins reproducibility, since it depends on the setup of the users system at build time.
+
+                    *   Stuart: were already not reproducible, and this bootstrap doesnt make things worse.
+        *   MichaelS:  if this is used to hard-pin build-time dependencies, it may actually  help reproducibility.  Hard-pinnning at build time is orthogonal to this  PR, but may be easier to achieve with it.
+        *   Ullrich:  if the contents of the build environment are recorded in index.json,  one can recreate the bootstrap environment at any time (or equivalently,  create config.yaml from that information), subject to the degree of  accuracy of the recorded data (e.g. are the source channels recorded, or  only version numbers and build strings?)
+
+            *   MichaelS,  Kale concerned that people may include too many unnecessary packages in  build requirements this way, out of carelessness or ignorance
+
+                    *   Ullrich: not a big deal - runtime dependencies are what really matter.
+</pre></div>
+</div>
+<ul>
 <li><p>Compiler customization:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>*   Mark: 848 is OK, but how does it address compiler and build flags?
 </pre></div>
@@ -183,6 +198,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../subteams.html">A list of current sub-teams</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../joining-the-team.html">Joining the team</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="00_intro.html">Core team meeting minutes</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="2023-01-25.html">conda-forge core meeting 2023-01-25</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2023-01-11.html">conda-forge core meeting 2023-01-11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2022-12-14.html">conda-forge core meeting 2022-12-14</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2022-11-30.html">conda-forge core meeting 2022-11-30</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2022-11-16.html">conda-forge core meeting 2022-11-16</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2022-11-02.html">conda-forge core meeting 2022-11-02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2022-10-19.html">conda-forge core meeting 2022-10-19</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2022-10-05.html">conda-forge core meeting 2022-10-05</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2022-09-21.html">conda-forge core meeting 2022-09-21</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2022-08-24.html">conda-forge core meeting 2022-08-24</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2022-08-10.html">conda-forge core meeting 2022-08-10</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2022-07-27.html">conda-forge core meeting 2022-07-27</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2022-06-29.html">conda-forge core meeting 2022-06-29</a></li>
 <li class="toctree-l3"><a class="reference internal" href="2022-06-15.html">conda-forge core meeting 2022-06-15</a></li>
 <li class="toctree-l3"><a class="reference internal" href="2022-06-01.html">conda-forge core meeting 2022-06-01</a></li>
 <li class="toctree-l3"><a class="reference internal" href="2022-05-18.html">conda-forge core meeting 2022-05-18</a></li>
@@ -386,7 +414,7 @@
         <li class="right" >
           <a href="2016-05-13.html" title="2016-05-13"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../../index.html">conda-forge 2022.07.16 documentation</a> &#187;</li>
+    <li><a href="../../index.html">conda-forge 2023.02.05 documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="../00_intro.html" >Organisation Documentation</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="00_intro.html" >Core team meeting minutes</a> &#187;</li>
@@ -396,8 +424,8 @@
     </div>
 
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2022, conda-forge.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+        &#169; Copyright 2016-2023, conda-forge.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>
