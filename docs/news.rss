@@ -4,10 +4,23 @@
         <title>conda-forge | community-driven packaging for conda Blog</title>
         <link>https://conda-forge.org/news/</link>
         <description>conda-forge | community-driven packaging for conda Blog</description>
-        <lastBuildDate>Fri, 22 Nov 2024 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 02 Apr 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Security Incident with Package Uploads (CVE-2025-31484)]]></title>
+            <link>https://conda-forge.org/news/2025/04/02/Security-Incident-with-Package-Uploads/</link>
+            <guid>https://conda-forge.org/news/2025/04/02/Security-Incident-with-Package-Uploads/</guid>
+            <pubDate>Wed, 02 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Yesterday, conda-forge was notified of a security incident reporting that the anaconda.org upload token]]></description>
+            <content:encoded><![CDATA[<p>Yesterday, <code>conda-forge</code> was notified of a security incident reporting that the <code>anaconda.org</code> upload token
+for the <code>conda-forge</code> channel had been accidentally leaked between on or about 2025-02-10 to 2025-04-01. Our
+investigation resulted in the temporary artifact upload shutdown you observed yesterday (2025-04-01). The results
+of our analysis show that, as best as can reasonably be determined, the token was not used by any 3rd party to
+upload malicious artifacts.</p>
+<p>More details in the <a href="https://conda-forge.org/blog/2025/04/02/security-incident-with-package-uploads/">corresponding blog post</a>.</p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Updating our default docker images]]></title>
             <link>https://conda-forge.org/news/2024/11/22/new-images/</link>
@@ -467,20 +480,6 @@ to at least 4.8.0 or upgrade your system to at least MacOS 10.13.</p>]]></conten
 platform several times. We have now set a formal deprecation date to be June 30, 2024. This date
 matches the <a href="https://access.redhat.com/articles/4038291" target="_blank" rel="noopener noreferrer">end of extended life-cycle support</a> from
 RedHat for RHEL 6. After this date, we build packages against CentOS 7 by default for <code>linux64</code>.</p>]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[conda-forge Google Group is Now Read-only - Move to Discourse]]></title>
-            <link>https://conda-forge.org/news/2023/01/09/conda-forge-google-group-is-now-read-only-move-to-discourse/</link>
-            <guid>https://conda-forge.org/news/2023/01/09/conda-forge-google-group-is-now-read-only-move-to-discourse/</guid>
-            <pubDate>Mon, 09 Jan 2023 00:00:00 GMT</pubDate>
-            <description><![CDATA[We have made the conda-forge Google Group read-only. Please use the new]]></description>
-            <content:encoded><![CDATA[<p>We have made the conda-forge Google Group read-only. Please use the new
-conda-forge <a href="https://conda.discourse.group/c/pkg-building/conda-forge/25" target="_blank" rel="noopener noreferrer">discourse
-forum</a>, our
-<a href="https://gitter.im/conda-forge/conda-forge.github.io" target="_blank" rel="noopener noreferrer">Gitter room</a>, or
-it's <a href="https://app.element.io/#/room/#conda-forge-space:matrix.org" target="_blank" rel="noopener noreferrer">Matrix/Element
-counterpart</a>
-instead.</p>]]></content:encoded>
         </item>
     </channel>
 </rss>
